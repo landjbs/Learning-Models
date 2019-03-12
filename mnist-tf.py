@@ -23,3 +23,12 @@ def preprocess_data(mnist_train_small):
   output_features=mnist_train_small.drop("6",axis=1)
   output_targets["label"]=mnist_train_small["6"]
   return output_features,output_targets
+
+# preprocess data
+X,y = preprocess_data(mnist_train_small)
+
+# one-hot encode targets
+y_encoded = keras.utils.to_categorical(y,num_classes=10)
+
+# train test split data
+X_train,X_test,y_train,y_test=train_test_split(X,y_encoded)
