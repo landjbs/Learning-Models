@@ -1,13 +1,8 @@
-from __future__ import print_function
-from IPython import display
-from matplotlib import cm
-from matplotlib import gridspec
 from matplotlib import pyplot as plt
 import numpy as np
 import pandas as pd
 from sklearn import metrics
 import tensorflow as tf
-from tensorflow.python.data import Dataset
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 
@@ -17,4 +12,14 @@ mnist_train_small = pd.read_csv("https://download.mlcc.google.com/mledu-datasets
 mnist_train_small = mnist_train_small.reindex(
     np.random.permutation(mnist_train_small.index))
 
-print(mnist_train_small.describe())
+# function to process raw data
+def preprocess_data(mnist_train_small):
+  """
+  Args: mnist_train_small dataframe of number shapes and labels
+  Returns: dataframe of number image pixels (important features)
+  and array of image labels (which number it is)
+  """
+  output_targets=pd.DataFrame()
+  output_features=mnist_train_small.drop("6",axis=1)
+  output_targets["label"]=mnist_train_small["6"]
+  return output_features,output_targets
