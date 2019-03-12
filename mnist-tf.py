@@ -4,6 +4,7 @@ import pandas as pd
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
 from keras.utils import to_categorical
+import pickle
 
 # import, reindex, and validate data
 mnist_train_small = pd.read_csv("https://download.mlcc.google.com/mledu-datasets/mnist_train_small.csv", sep=",")
@@ -51,6 +52,8 @@ k_model.compile(optimizer='rmsprop',
 
 # fit model to train data
 k_model.fit(X_train, y_train, epochs=50, batch_size=400)
+
+pickle.dump(model, open('k_model.sav','wb'))
 
 # class MyModel(tf.keras.Model):
 #
