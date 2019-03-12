@@ -5,6 +5,8 @@ import tensorflow as tf
 from sklearn.model_selection import train_test_split
 from keras.utils import to_categorical
 import pickle
+from keras.models import Sequential
+from keras.layers import Dense, Activation
 
 # import, reindex, and validate data
 mnist_train_small = pd.read_csv("https://download.mlcc.google.com/mledu-datasets/mnist_train_small.csv", sep=",")
@@ -33,44 +35,20 @@ y_encoded = to_categorical(y,num_classes=10)
 # train test split data
 X_train,X_test,y_train,y_test=train_test_split(X,y_encoded)
 
+def train_k_model(X_train,y_train):
+    k_model = Sequential()
+    k_model.add(Dense(300, activation='sigmoid', input_shape=(784,)))
 
-# neural net
-from keras.models import Sequential
-from keras.layers import Dense, Activation
+    k_model.add(Dense(300, activation='sigmoid'))
 
-# define layers of and compile model
-k_model = Sequential()
-k_model.add(Dense(300, activation='sigmoid', input_shape=(784,)))
+    k_model.add(Dense(10, activation='softmax'))
 
-k_model.add(Dense(300, activation='sigmoid'))
+    k_model.compile(optimizer='rmsprop',
+                  loss='categorical_crossentropy',
+                  metrics=['accuracy'])
 
-k_model.add(Dense(10, activation='softmax'))
+    # fit model to train data
+    k_model.fit(X_train, y_train, epochs=50, batch_size=400)
+    return k_model
 
-k_model.compile(optimizer='rmsprop',
-              loss='categorical_crossentropy',
-              metrics=['accuracy'])
-
-# fit model to train data
-k_model.fit(X_train, y_train, epochs=50, batch_size=400)
-
-pickle.dump(model, open('k_model.sav','wb'))
-
-# class MyModel(tf.keras.Model):
-#
-#   def __init__(self):
-#     super(MyModel, self).__init__()
-#     self.dense1 = tf.keras.layers.Dense(300, activation=tf.nn.relu)
-#     self.dense2 = tf.keras.layers.Dense(10, activation=tf.nn.softmax)
-#     self.dropout = tf.keras.layers.Dropout(0.5)
-#
-#   def call(self, inputs, training=False):
-#     x = self.dense1(inputs)
-#     if training:
-#       x = self.dropout(x, training=training)
-#     return self.dense2(x)
-#
-# model = MyModel()
-#
-# model.__init__()
-#
-# model.call(X_train)
+pickle.dump(train_k_model(X_train,y_train), open('k_model.sav','wb'))
