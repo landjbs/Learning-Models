@@ -46,14 +46,14 @@ for i in range(1,100):
     k_model.add(Dense(300, activation='sigmoid', input_shape=(784,)))
     k_model.add(Dropout(i/100))
 
-    k_model.add(Dense(10), activation='softmax')
+    k_model.add(Dense(10, activation='softmax'))
 
-    model.compile(optimizer='rmsprop',
+    k_model.compile(optimizer='rmsprop',
                   loss='categorical_crossentropy',
                   metrics=['accuracy'])
 
     # fit model to train data
-    model.fit(X_train, y_train, epochs=30, batch_size=400)
+    k_model.fit(X_train, y_train, epochs=30, batch_size=400)
 
     print(k_model.evaluate(X_train, y_train, batch_size=128))
     print(k_model.evaluate(X_test, y_test, batch_size=128))
