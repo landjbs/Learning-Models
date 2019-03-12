@@ -38,7 +38,7 @@ from keras.models import Sequential
 from keras.layers import Dense, Activation
 from keras.layers import Dense, Dropout, Activation
 
-train_times, test_times, times_steps = [],[],[]
+train_acc, test_acc, times_steps = [],[],[]
 
 for i in range(1,100):
 # define layers of and compile model
@@ -53,11 +53,16 @@ for i in range(1,100):
                   metrics=['accuracy'])
 
     # fit model to train data
-    k_model.fit(X_train, y_train, epochs=30, batch_size=400)
+    k_model.fit(X_train, y_train, epochs=10, batch_size=400)
 
-    print(k_model.evaluate(X_train, y_train, batch_size=128))
-    print(k_model.evaluate(X_test, y_test, batch_size=128))
+    train_acc.append((k_model.evaluate(X_train, y_train, batch_size=128))[1])
+    test_acc.append((k_model.evaluate(X_test, y_test, batch_size=128))[1])
     times_steps.append(i)
+
+plt.plot(times_steps, train_acc)
+plt.plot(times_steps, test_acc)
+
+plt.show()
 
 # class MyModel(tf.keras.Model):
 #
