@@ -48,4 +48,4 @@ def make_model(X_train=X_train, y_train=y_train, save=True):
     if save: pickle.dump(name, open('k_model.sav','wb'))
     return k_model
 
-make_model()
+loaded_model = pickle.load(open("k_model.sav", "rb"))
