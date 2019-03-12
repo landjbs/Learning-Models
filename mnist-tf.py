@@ -34,39 +34,47 @@ X_train,X_test,y_train,y_test=train_test_split(X,y_encoded)
 
 
 # neural net
-# from keras.models import Sequential
-# from keras.layers import Dense, Activation
-# # define layers of and compile model
-# model = Sequential([
-#     Dense(300, input_shape=(784,)),
-#     Activation('sigmoid'),
-#     Dense(300, input_shape=(300,)),
-#     Activation('sigmoid'),
-#     Dense(10),
-#     Activation('softmax'),
-# ])
+from keras.models import Sequential
+from keras.layers import Dense, Activation
+from keras.layers import Dense, Dropout, Activation
+
+train_times, test_times, times_steps = [],[],[]
+
+for i in range(1,100):
+# define layers of and compile model
+    k_model = Sequential()
+    k_model.add(Dense(300, activation='sigmoid', input_shape=(784,)))
+    k_model.add(Dropout(i/100))
+
+    k_model.add(Dense(10), activation='softmax')
+
+    model.compile(optimizer='rmsprop',
+                  loss='categorical_crossentropy',
+                  metrics=['accuracy'])
+
+    # fit model to train data
+    model.fit(X_train, y_train, epochs=30, batch_size=400)
+
+    print(k_model.evaluate(X_train, y_train, batch_size=128))
+    print(k_model.evaluate(X_test, y_test, batch_size=128))
+    times_steps.append(i)
+
+# class MyModel(tf.keras.Model):
 #
-# model.compile(optimizer='rmsprop',
-#               loss='categorical_crossentropy',
-#               metrics=['accuracy'])
+#   def __init__(self):
+#     super(MyModel, self).__init__()
+#     self.dense1 = tf.keras.layers.Dense(300, activation=tf.nn.relu)
+#     self.dense2 = tf.keras.layers.Dense(10, activation=tf.nn.softmax)
+#     self.dropout = tf.keras.layers.Dropout(0.5)
 #
-# # fit model to train data
-# model.fit(X_train, y_train, epochs=50, batch_size=400)
-
-class MyModel(tf.keras.Model):
-
-  def __init__(self):
-    super(MyModel, self).__init__()
-    self.dense1 = tf.keras.layers.Dense(300, activation=tf.nn.relu)
-    self.dense2 = tf.keras.layers.Dense(10, activation=tf.nn.softmax)
-    self.dropout = tf.keras.layers.Dropout(0.5)
-
-  def call(self, inputs, training=False):
-    x = self.dense1(inputs)
-    if training:
-      x = self.dropout(x, training=training)
-    return self.dense2(x)
-
-model = MyModel()
-
-print(model.__init__())
+#   def call(self, inputs, training=False):
+#     x = self.dense1(inputs)
+#     if training:
+#       x = self.dropout(x, training=training)
+#     return self.dense2(x)
+#
+# model = MyModel()
+#
+# model.__init__()
+#
+# model.call(X_train)
