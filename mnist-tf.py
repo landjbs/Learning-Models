@@ -35,20 +35,17 @@ y_encoded = to_categorical(y,num_classes=10)
 # train test split data
 X_train,X_test,y_train,y_test=train_test_split(X,y_encoded)
 
-def train_k_model(X_train,y_train):
+def make_model(X_train=X_train, y_train=y_train, save=True):
     k_model = Sequential()
     k_model.add(Dense(300, activation='sigmoid', input_shape=(784,)))
-
     k_model.add(Dense(300, activation='sigmoid'))
-
     k_model.add(Dense(10, activation='softmax'))
-
     k_model.compile(optimizer='rmsprop',
                   loss='categorical_crossentropy',
                   metrics=['accuracy'])
-
     # fit model to train data
     k_model.fit(X_train, y_train, epochs=50, batch_size=400)
+    if save: pickle.dump(name, open('k_model.sav','wb'))
     return k_model
 
-pickle.dump(train_k_model(X_train,y_train), open('k_model.sav','wb'))
+make_model()
