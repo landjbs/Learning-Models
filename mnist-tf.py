@@ -69,4 +69,4 @@ class MyModel(tf.keras.Model):
 
 model = MyModel()
 
-print(model)
+print(model.__init__())
