@@ -10,7 +10,6 @@ import tensorflow as tf
 from tensorflow.python.data import Dataset
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
-import keras
 
 # import, reindex, and validate data
 mnist_train_small = pd.read_csv("https://download.mlcc.google.com/mledu-datasets/mnist_train_small.csv", sep=",")
@@ -18,4 +17,4 @@ mnist_train_small = pd.read_csv("https://download.mlcc.google.com/mledu-datasets
 mnist_train_small = mnist_train_small.reindex(
     np.random.permutation(mnist_train_small.index))
 
-mnist_train_small.describe()
+print(mnist_train_small.describe())
