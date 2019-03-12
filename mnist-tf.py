@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
-from keras import utils.to_categorical
+from keras.utils import to_categorical
 
 # import, reindex, and validate data
 mnist_train_small = pd.read_csv("https://download.mlcc.google.com/mledu-datasets/mnist_train_small.csv", sep=",")
@@ -27,7 +27,7 @@ def preprocess_data(mnist_train_small):
 X,y = preprocess_data(mnist_train_small)
 
 # one-hot encode targets
-y_encoded = utils.to_categorical(y,num_classes=10)
+y_encoded = to_categorical(y,num_classes=10)
 
 # train test split data
 X_train,X_test,y_train,y_test=train_test_split(X,y_encoded)
