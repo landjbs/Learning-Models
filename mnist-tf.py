@@ -36,33 +36,21 @@ X_train,X_test,y_train,y_test=train_test_split(X,y_encoded)
 # neural net
 from keras.models import Sequential
 from keras.layers import Dense, Activation
-from keras.layers import Dense, Dropout, Activation
 
-train_acc, test_acc, times_steps = [],[],[]
-
-for i in range(1,100):
 # define layers of and compile model
-    k_model = Sequential()
-    k_model.add(Dense(300, activation='sigmoid', input_shape=(784,)))
-    k_model.add(Dropout(i/100))
+k_model = Sequential()
+k_model.add(Dense(300, activation='sigmoid', input_shape=(784,)))
 
-    k_model.add(Dense(10, activation='softmax'))
+k_model.add(Dense(300, activation='sigmoid'))
 
-    k_model.compile(optimizer='rmsprop',
-                  loss='categorical_crossentropy',
-                  metrics=['accuracy'])
+k_model.add(Dense(10, activation='softmax'))
 
-    # fit model to train data
-    k_model.fit(X_train, y_train, epochs=10, batch_size=400)
+k_model.compile(optimizer='rmsprop',
+              loss='categorical_crossentropy',
+              metrics=['accuracy'])
 
-    train_acc.append((k_model.evaluate(X_train, y_train, batch_size=128))[1])
-    test_acc.append((k_model.evaluate(X_test, y_test, batch_size=128))[1])
-    times_steps.append(i)
-
-plt.plot(times_steps, train_acc)
-plt.plot(times_steps, test_acc)
-
-plt.show()
+# fit model to train data
+k_model.fit(X_train, y_train, epochs=50, batch_size=400)
 
 # class MyModel(tf.keras.Model):
 #
