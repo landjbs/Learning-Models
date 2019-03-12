@@ -30,7 +30,7 @@ def preprocess_data(mnist_train_small):
 X,y = preprocess_data(mnist_train_small)
 
 # one-hot encode targets
-y_encoded = to_categorical(y,num_classes=10)
+y_encoded = to_categorical(y, num_classes=10)
 
 # train test split data
 X_train,X_test,y_train,y_test=train_test_split(X,y_encoded)
@@ -45,7 +45,9 @@ def make_model(X_train=X_train, y_train=y_train, save=True):
                   metrics=['accuracy'])
     # fit model to train data
     k_model.fit(X_train, y_train, epochs=50, batch_size=400)
-    if save: pickle.dump(name, open('k_model.sav','wb'))
+    if save: pickle.dump(k_model, open('k_model.sav','wb'))
     return k_model
 
 loaded_model = pickle.load(open("k_model.sav", "rb"))
+
+print(loaded_model.predict(X_test))
