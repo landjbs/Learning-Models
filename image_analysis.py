@@ -22,12 +22,17 @@ video_capture = cv2.VideoCapture(0)
 landon_image = face_recognition.load_image_file("landon.jpg")
 landon_face_encoding = face_recognition.face_encodings(landon_image)[0]
 
+lorna_image = face_recognition.load_image_file("lorna.jpg")
+lorna_face_encoding = face_recognition.face_encodings(lorna_image)[0]
+
 # Create arrays of known face encodings and their names
 known_face_encodings = [
-	landon_face_encoding
+	landon_face_encoding,
+    lorna_face_encoding
 ]
 known_face_names = [
 	"Landon ",
+    "Lorna"
 ]
 
 # Initialize some variables
