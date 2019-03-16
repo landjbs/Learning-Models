@@ -71,24 +71,24 @@ while True:
 
 	process_this_frame = not process_this_frame
 
-	# if len(face_names) == 1:
-	# 	locs1 = face_locations[0]
-	#
-	# 	top1 = 4* (locs1[0])
-	# 	right1 = 4* (locs1[1])
-	# 	bottom1 = 4* (locs1[2])
-	# 	left1 = 4* (locs1[3])
-	#
-	# 	face1 = frame[top1:bottom1, left1:right1]
-	#
-	# 	yAxis1 = bottom1 - top1
-	# 	xAxis1 = right1 - left1
-	# 	print(f"y: {yAxis1}\nx: {xAxis1}")
-	#
-	# 	face2 = np.copy(face1[0:yAxis1, 0:xAxis1])
-	# 	plt.imshow(face2)
-	# 	plt.show()
-	# 	break
+	if len(face_names) == 1:
+		locs1 = face_locations[0]
+
+		top1 = 4* (locs1[0])
+		right1 = 4* (locs1[1])
+		bottom1 = 4* (locs1[2])
+		left1 = 4* (locs1[3])
+
+		face1 = frame[top1:bottom1, left1:right1]
+
+		yAxis1 = bottom1 - top1
+		xAxis1 = right1 - left1
+		print(f"y: {yAxis1}\nx: {xAxis1}")
+
+		face2 = np.copy(face1[0:yAxis1, 0:xAxis1])
+		plt.imshow(face2)
+		plt.show()
+		break
 
 	if len(face_names) == 2:
 
