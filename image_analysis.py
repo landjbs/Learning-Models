@@ -4,18 +4,21 @@ import pandas as pd
 import face_recognition
 import cv2
 
-video_capture = cv2.VideoCapture(0)
+# video_capture = cv2.VideoCapture(0)
 
-users_dict = {"Landon":"landon.jpg", "Lorna":"lorna.jpg"}
+user_dict = {"Landon":"landon.jpg", "Lorna":"lorna.jpg"}
 
-for user,photo in users_dict:
-	
-# Load a sample picture and learn how to recognize it.
-landon_image = face_recognition.load_image_file("landon.jpg")
-landon_face_encoding = face_recognition.face_encodings(landon_image)[0]
+for user in user_dict:
+	curImage = face_recognition.load_image_file(user_dict[user])
+	face_encoding = face_recognition.face_encodings(curImage)[0]
+	print(face_encoding)
 
-lorna_image = face_recognition.load_image_file("lorna.jpg")
-lorna_face_encoding = face_recognition.face_encodings(lorna_image)[0]
+# # Load a sample picture and learn how to recognize it.
+# landon_image = face_recognition.load_image_file("landon.jpg")
+# landon_face_encoding = face_recognition.face_encodings(landon_image)[0]
+#
+# lorna_image = face_recognition.load_image_file("lorna.jpg")
+# lorna_face_encoding = face_recognition.face_encodings(lorna_image)[0]
 
 # Create arrays of known face encodings and their names
 known_face_encodings = [
