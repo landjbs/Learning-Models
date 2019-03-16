@@ -78,9 +78,10 @@ while True:
 		right *= 4
 		bottom *= 4
 		left *= 4
-        
-        face_frame = frame[top:bottom, right:left]
-        print(frace_frame.shape)
+
+		frame[top:bottom, right:left, :] *= 4
+
+
 
 		cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
 
