@@ -8,27 +8,13 @@ import cv2
 
 user_dict = {"Landon":"landon.jpg", "Lorna":"lorna.jpg"}
 
+known_face_encodings, known_face_names = [], []
+
 for user in user_dict:
 	curImage = face_recognition.load_image_file(user_dict[user])
 	face_encoding = face_recognition.face_encodings(curImage)[0]
-	print(face_encoding)
-
-# # Load a sample picture and learn how to recognize it.
-# landon_image = face_recognition.load_image_file("landon.jpg")
-# landon_face_encoding = face_recognition.face_encodings(landon_image)[0]
-#
-# lorna_image = face_recognition.load_image_file("lorna.jpg")
-# lorna_face_encoding = face_recognition.face_encodings(lorna_image)[0]
-
-# Create arrays of known face encodings and their names
-known_face_encodings = [
-	landon_face_encoding,
-	lorna_face_encoding
-]
-known_face_names = [
-	"Landon",
-	"Lorna"
-]
+	known_face_encodings.append(face_encoding)
+	known_face_names.append(user)
 
 # Initialize some variables
 face_locations = []
