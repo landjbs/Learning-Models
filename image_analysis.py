@@ -71,18 +71,26 @@ while True:
 
 	process_this_frame = not process_this_frame
 
-	if len(face_names) == 1:
-		print(face_locations)
-		locs1 = face_locations[0]
+	# if len(face_names) == 1:
+	# 	locs1 = face_locations[0]
+	#
+	# 	top1 = 4* (locs1[0])
+	# 	right1 = 4* (locs1[1])
+	# 	bottom1 = 4* (locs1[2])
+	# 	left1 = 4* (locs1[3])
+	#
+	# 	face1 = frame[top1:bottom1, left1:right1]
+	#
+	# 	yAxis1 = bottom1 - top1
+	# 	xAxis1 = right1 - left1
+	# 	print(f"y: {yAxis1}\nx: {xAxis1}")
+	#
+	# 	face2 = np.copy(face1[0:yAxis1, 0:xAxis1])
+	# 	plt.imshow(face2)
+	# 	plt.show()
+	# 	break
 
-		top = 4* (locs1[0])
-		right = 4* (locs1[1])
-		bottom = 4* (locs1[2])
-		left = 4* (locs1[3])
-
-		face1 = frame[top:bottom, left:right]
-
-	elif len(face_names) == 2:
+	if len(face_names) == 2:
 
 		locs1 = face_locations[0]
 		locs2 = face_locations[1]
@@ -97,15 +105,23 @@ while True:
 		bottom2 = 4* (locs2[2])
 		left2 = 4* (locs2[3])
 
-		face1 = frame[top2:bottom2, left2:right2]
-		plt.imshow(face1)
-		plt.title('face1')
-		plt.show()
+		# swap face 1 for face 2
+		yAxis1 = bottom1 - top1
+		xAxis1 = right1 - left1
 
-		face2 = frame[top1:bottom1, left1:right1]
-		plt.imshow(face1)
-		plt.title('face2')
-		plt.show()
+		yAxis2 = bottom2 - top2
+		xAxis2 = right2 - left2
+
+		face1_array = np.copy(frame[top1:bottom1, left1:right1])
+		face2_array = np.copy(frame[top2:bottom2, left2:right2])
+
+		if xAxis1 < xAxis2 and yAxis1 < yAxis2:
+			frame[top1:bottom1, left1:right1] = (face2_array)[0:yAxis1, 0:xAxis1]
+
+		elif xAxis1 > xAxis2 and yAxis1 > yAxis2:
+			# swap face 2 for face 1
+			frame[top2:bottom2, left2:right2] = (face1_array)[0:yAxis2, 0:xAxis2]
+		else: pass
 
 		#
 		# for (top, right, bottom, left), name in zip(face_locations, face_names):
