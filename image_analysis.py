@@ -14,6 +14,7 @@ for user in user_dict:
 	# load and encode picture of user
 	curImage = face_recognition.load_image_file(user_dict[user])
 	face_encoding = face_recognition.face_encodings(curImage)[0]
+
 	# add encoding and picture to respective lists at same index
 	known_face_encodings.append(face_encoding)
 	known_face_names.append(user)
@@ -60,15 +61,15 @@ while True:
 		locs1 = face_locations[0]
 		locs2 = face_locations[1]
 
-		top1 = 4* (locs1[0])
-		right1 = 4* (locs1[1])
-		bottom1 = 4* (locs1[2])
-		left1 = 4* (locs1[3])
+		top1 = 4 * (locs1[0])
+		right1 = 4 * (locs1[1])
+		bottom1 = 4 * (locs1[2])
+		left1 = 4 * (locs1[3])
 
-		top2 = 4* (locs2[0])
-		right2 = 4* (locs2[1])
-		bottom2 = 4* (locs2[2])
-		left2 = 4* (locs2[3])
+		top2 = 4 * (locs2[0])
+		right2 = 4 * (locs2[1])
+		bottom2 = 4 * (locs2[2])
+		left2 = 4 * (locs2[3])
 
 		# swap face 1 for face 2
 		yAxis1 = bottom1 - top1
