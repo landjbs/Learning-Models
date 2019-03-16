@@ -72,16 +72,41 @@ while True:
 	process_this_frame = not process_this_frame
 
 	if len(face_names) == 1:
-		locs1 = 4* face_locationss[0]
+		print(face_locations)
+		locs1 = face_locations[0]
+
+		top = 4* (locs1[0])
+		right = 4* (locs1[1])
+		bottom = 4* (locs1[2])
+		left = 4* (locs1[3])
+
+		face1 = frame[top:bottom, left:right]
 
 	elif len(face_names) == 2:
 
-		locs1 = 4*(face_locations[0])
-		locs2 = 4*(face_locations[1])
+		locs1 = face_locations[0]
+		locs2 = face_locations[1]
 
-		face1 = frame[locs1[0]:locs1[2], locs1[4]:locs1[3]]
+		top1 = 4* (locs1[0])
+		right1 = 4* (locs1[1])
+		bottom1 = 4* (locs1[2])
+		left1 = 4* (locs1[3])
+
+		top2 = 4* (locs2[0])
+		right2 = 4* (locs2[1])
+		bottom2 = 4* (locs2[2])
+		left2 = 4* (locs2[3])
+
+		face1 = frame[top2:bottom2, left2:right2]
 		plt.imshow(face1)
+		plt.title('face1')
 		plt.show()
+
+		face2 = frame[top1:bottom1, left1:right1]
+		plt.imshow(face1)
+		plt.title('face2')
+		plt.show()
+
 		#
 		# for (top, right, bottom, left), name in zip(face_locations, face_names):
 		# 	# Scale back up face locations since the frame we detected in was scaled to 1/4 size
