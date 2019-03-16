@@ -81,14 +81,14 @@ while True:
 		face1_array = np.copy(frame[top1:bottom1, left1:right1])
 		face2_array = np.copy(frame[top2:bottom2, left2:right2])
 
+		# impose smaller face onto larger face
 		if xAxis1 < xAxis2 and yAxis1 < yAxis2:
-			frame[top1:bottom1, left1:right1] = (face2_array)[0:yAxis1, 0:xAxis1]
-
+			# potential bug but attempted to represent 50% of each face on faceq
+			frame[top1:bottom1, left1:right1] = np.mean(face1_array, (face2_array)[0:yAxis1, 0:xAxis1])
 		elif xAxis1 > xAxis2 and yAxis1 > yAxis2:
-			# swap face 2 for face 1
 			frame[top2:bottom2, left2:right2] = (face1_array)[0:yAxis2, 0:xAxis2]
-		else: pass
-
+		else:
+			pass
 
 	for (top, right, bottom, left), name in zip(face_locations, face_names):
 		# Scale back up face locations since the frame we detected in was scaled to 1/4 size
@@ -101,7 +101,7 @@ while True:
 
 		cv2.rectangle(frame, (left, bottom - 35), (right, bottom), (0, 0, 255), cv2.FILLED)
 		font = cv2.FONT_HERSHEY_DUPLEX
-		cv2.putText(frame, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
+		cv2.putText(frame, "name", (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
 
 	# Display the resulting image
 	cv2.imshow('Video', frame)
