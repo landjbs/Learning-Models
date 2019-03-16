@@ -27,11 +27,11 @@ lorna_face_encoding = face_recognition.face_encodings(lorna_image)[0]
 # Create arrays of known face encodings and their names
 known_face_encodings = [
 	landon_face_encoding,
-    lorna_face_encoding
+	lorna_face_encoding
 ]
 known_face_names = [
-	"Landon ",
-    "Lorna"
+	"Landon",
+	"Lorna"
 ]
 
 # Initialize some variables
@@ -79,9 +79,10 @@ while True:
 		bottom *= 4
 		left *= 4
 
-		frame[top:bottom, right:left, :] *= 4
-
-
+		if name == "Landon":
+			frame[top:bottom, left:right, 0] *= 4
+		elif name == "Lorna":
+			frame[top:bottom, left:right, 1] *= 4
 
 		cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
 
